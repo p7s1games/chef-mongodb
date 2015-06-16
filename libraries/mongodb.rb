@@ -326,6 +326,10 @@ class Chef::ResourceDefinitionList::MongoDB
 
   # Ensure retry upon failure
   def self.rescue_connection_failure(max_retries = 30)
+    # lazy require, to move loading this modules to runtime of the cookbook
+    require 'rubygems'
+    require 'mongo'
+
     retries = 0
     begin
       yield
